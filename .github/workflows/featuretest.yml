@@ -1,0 +1,41 @@
+name: Build and Test C# Project
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # Checkout the repository to the runner's workspace
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Set up .NET environment (you may adjust the version if needed)
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0' # Update this based on your project's target .NET version
+
+      # Restore dependencies based on the project/solution file
+      - name: Restore Dependencies
+        run: dotnet restore
+
+      # Build the project using the solution file (this will work with the dummy solution)
+      - name: Build
+        run: dotnet build --configuration Release
+
+      # Run tests using the appropriate solution or project file
+      - name: Run Tests
+        run: dotnet test --no-build --verbosity normal
+
+      # Build the MSI package (adjust the path once the actual solution is ready)
+      - name: Build MSI
+        run: msbuild C:\Users\320275576\Source\Repos\SWF-Orchestrator-Tests\src\somefile.sln /t:Build /p:Configuration=Release /p:Platform=x64
+        # Adjust the path above once you replace the dummy solution with the real one
