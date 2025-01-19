@@ -36,6 +36,6 @@ jobs:
         run: dotnet test --no-build --verbosity normal
 
       # Build the MSI package (adjust the path once the actual solution is ready)
-      - name: Build MSI
-        run: msbuild C:\Users\320275576\Source\Repos\SWF-Orchestrator-Tests\src\somefile.sln /t:Build /p:Configuration=Release /p:Platform=x64
+      #- name: Build MSI
+       # run: msbuild \src\somefile.sln /t:Build /p:Configuration=Release /p:Platform=x64
         # Adjust the path above once you replace the dummy solution with the real one
