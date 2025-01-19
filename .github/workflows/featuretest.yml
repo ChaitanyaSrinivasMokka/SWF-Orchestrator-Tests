@@ -23,19 +23,18 @@ jobs:
         with:
           dotnet-version: '6.0' # Update this based on your project's target .NET version
 
-      # Restore dependencies based on the project/solution file
+      # Restore dependencies based on the solution file
       - name: Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore ./src/somefile.sln # Update to your actual solution file path
 
-      # Build the project using the solution file (this will work with the dummy solution)
+      # Build the project using the solution file
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build ./src/somefile.sln --configuration Release # Update to your actual solution file path
 
-      # Run tests using the appropriate solution or project file
+      # Run tests using the solution file
       - name: Run Tests
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test ./src/somefile.sln --no-build --verbosity normal # Update to your actual solution file path
 
-      # Build the MSI package (adjust the path once the actual solution is ready)
-      #- name: Build MSI
-       # run: msbuild \src\somefile.sln /t:Build /p:Configuration=Release /p:Platform=x64
-        # Adjust the path above once you replace the dummy solution with the real one
+      # Placeholder: Uncomment and adjust if you want to build an MSI package
+      # - name: Build MSI
+      #   run: msbuild ./src/somefile.sln /t:Build /p:Configuration=Release /p:Platform=x64
