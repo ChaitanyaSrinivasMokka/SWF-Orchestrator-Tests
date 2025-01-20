@@ -27,6 +27,11 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
+      # Install WiX Toolset
+      - name: Install WiX Toolset
+        run: |
+          choco install wixtoolset --version=3.11.2
+
       # Restore dependencies based on the solution file
       - name: Restore Dependencies
         run: dotnet restore ./src/somefile.sln # Update to your actual solution file path
@@ -42,9 +47,10 @@ jobs:
       # Build the MSI package using WiX
       - name: Build MSI
         run: |
-          msbuild ./src/somefile.sln /t:Build /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath=./output
-          candle.exe -out ./output/yourproject.wixobj ./src/yourproject.wxs
-          light.exe -out ./output/yourproject.msi ./output/yourproject.wixobj
+          cd ./src
+          msbuild ./somefile.sln /t:Build /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath=../output
+          candle.exe -out ../output/yourproject.wixobj yourproject.wxs
+          light.exe -out ../output/yourproject.msi ../output/yourproject.wixobj
 
       # Upload the generated MSI as an artifact
       - name: Upload MSI Artifact
