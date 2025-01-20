@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="SWF-Orchestrator" Language="1033" Version="1.0.0.0" Manufacturer="philips" UpgradeCode="76315f79-3a6b-4fc2-9b6a-11073e72c789">
+  <Product Id="*" Name="SWF-Orchestrator" Language="1033" Version="1.0.0.0" Manufacturer="philips" UpgradeCode="119c5e3a-0507-4fe5-b076-8dd6c1f19262">
     <Package InstallerVersion="500" Compressed="yes" Comments="Windows Installer Package"/>
 
     <Media Id="1" Cabinet="product.cab" EmbedCab="yes"/>
@@ -9,7 +9,7 @@
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="SWF-Orchestrator">
           <!-- Dummy placeholder, replace with actual executable later -->
-          <Component Id="MainExecutable" Guid="PUT-GUID-HERE">
+          <Component Id="MainExecutable" Guid="aa2a33ca-bbfa-4cb2-af05-2ee54781ae27">
             <File Id="MainFile" Name="dummyfile.exe" DiskId="1" Source="src\bin\Release\dummyfile.exe" />
           </Component>
         </Directory>
