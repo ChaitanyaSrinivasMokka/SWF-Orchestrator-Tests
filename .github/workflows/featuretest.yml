@@ -27,39 +27,22 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
-      # Install WiX Toolset (if not already installed)
-      - name: Check and Install WiX Toolset
-        run: |
-          if (-Not (Get-Command "candle.exe" -ErrorAction SilentlyContinue)) {
-            choco install wixtoolset --version=3.11.2
-          } else {
-            echo "WiX Toolset already installed"
-          }
-
       # Restore dependencies based on the solution file
       - name: Restore Dependencies
-        run: dotnet restore ./src/somefile.sln
+        run: dotnet restore ./src/somefile.sln # Update to your actual solution file path
 
       # Build the project using the solution file
       - name: Build
-        run: dotnet build ./src/somefile.sln --configuration Release
+        run: dotnet build ./src/somefile.sln --configuration Release # Update to your actual solution file path
 
       # Run tests using the solution file
       - name: Run Tests
-        run: dotnet test ./src/somefile.sln --no-build --verbosity normal
+        run: dotnet test ./src/somefile.sln --no-build --verbosity normal # Update to your actual solution file path
 
-      # Build the MSI package using WiX
+      # Build the MSI package
       - name: Build MSI
-        run: |
-          # Move to the directory containing the solution
-          cd ./src
-          
-          # Ensure that the paths for the WixSource (.wxs) and output directories are correct
-          msbuild ./somefile.sln /t:Build /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath=../output
+        run: msbuild ./src/somefile.sln /t:Build /p:Configuration=Debug /p:Platform="Any CPU" /p:OutputPath=./output
 
-          # Check if the .wxs file is in the correct path and run candle.exe
-          candle.exe -out ../output/yourproject.wixobj ./src/installer/yourproject.wxs
-          light.exe -out ../output/yourproject.msi ../output/yourproject.wixobj
 
       # Upload the generated MSI as an artifact
       - name: Upload MSI Artifact
