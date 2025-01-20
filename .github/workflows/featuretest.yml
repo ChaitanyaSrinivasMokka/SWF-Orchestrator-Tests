@@ -39,10 +39,12 @@ jobs:
       - name: Run Tests
         run: dotnet test ./src/somefile.sln --no-build --verbosity normal # Update to your actual solution file path
 
-      # Build the MSI package
+      # Build the MSI package using WiX
       - name: Build MSI
-        run: msbuild ./src/somefile.sln /t:Build /p:Configuration=Debug /p:Platform="Any CPU" /p:OutputPath=./output
-
+        run: |
+          msbuild ./src/somefile.sln /t:Build /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath=./output
+          candle.exe -out ./output/yourproject.wixobj ./src/yourproject.wxs
+          light.exe -out ./output/yourproject.msi ./output/yourproject.wixobj
 
       # Upload the generated MSI as an artifact
       - name: Upload MSI Artifact
