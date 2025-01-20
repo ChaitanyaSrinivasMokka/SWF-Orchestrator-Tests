@@ -1,4 +1,4 @@
-name: Build and Test C# Project
+name: Build, Test, and Generate MSI
 
 on:
   push:
@@ -35,6 +35,13 @@ jobs:
       - name: Run Tests
         run: dotnet test ./src/somefile.sln --no-build --verbosity normal # Update to your actual solution file path
 
-      # Placeholder: Uncomment and adjust if you want to build an MSI package
-      # - name: Build MSI
-      #   run: msbuild ./src/somefile.sln /t:Build /p:Configuration=Release /p:Platform=x64
+      # Build the MSI package
+      - name: Build MSI
+        run: msbuild ./src/somefile.sln /t:Build /p:Configuration=Release /p:Platform=x64 /p:OutputPath=./output
+
+      # Upload the generated MSI as an artifact
+      - name: Upload MSI Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: msi-package
+          path: ./output/*.msi
