@@ -27,10 +27,14 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
 
-      # Install WiX Toolset
-      - name: Install WiX Toolset
+      # Install WiX Toolset (if not already installed)
+      - name: Check and Install WiX Toolset
         run: |
-          choco install wixtoolset --version=3.11.2
+          if (-Not (Get-Command "candle.exe" -ErrorAction SilentlyContinue)) {
+            choco install wixtoolset --version=3.11.2
+          } else {
+            echo "WiX Toolset already installed"
+          }
 
       # Restore dependencies based on the solution file
       - name: Restore Dependencies
